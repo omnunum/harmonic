@@ -5,7 +5,8 @@ Clone the repo as `harmonic` and then cd in.  If running locally, make sure to c
 ### Docker
 Run the following commands
 - `docker compose up edgedb`
-- (initialize database, generate UI login (make sure to swap port to 10701 when running on host)) ```
+- (initialize database, generate UI login (make sure to swap port to 10701 when running on host)) 
+```
 docker exec harmonic-edgedb-1 su edgedb -c "\
 cd harmonic && edgedb project init --non-interactive ; \
 echo harmonic | edgedb instance reset-password -I harmonic --password-from-stdin && \
