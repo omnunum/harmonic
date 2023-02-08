@@ -2,6 +2,13 @@
 ## Quickstart
 Clone the repo as `harmonic` and then cd in.  If running locally, make sure to create a new python 3.10 virtual environment first.  After setting up, see the [Named Pipe as Message Bus](#named-pipe-as-message-bus) and [API](#api) for usage.  After some data is loaded you can check out [a walkthrough with our data](Exploration%20Cookbook.md) and the [official EdgeDB cheatsheets](https://www.edgedb.com/docs/guides/cheatsheet/index#cheatsheets).
 
+### Points of Interest
+- The ingestion service is run from `services/ingest.py`
+- The data model is defined in `dbschema/default.esdl`
+- The two exposed api endpoints are in `api/people.py` and `api/companies.py`
+- An additional data file is in `data/21 Persons.json` so we can have some names for the people
+- The script to stream in the initial data is `load_data.sh`
+
 ### Docker
 Run the following commands
 - `docker compose up edgedb`
@@ -34,12 +41,6 @@ Run the following commands:
   - (send inital data to pipe) `./load_data.sh`
   - (start REST API to query database) `uvicorn api.main:fast_api --port $API_PORT --reload`
 
-## Points of Interest
-- The ingestion service is run from `services/ingest.py`
-- The data model is defined in `dbschema/default.esdl`
-- The two exposed api endpoints are in `api/people.py` and `api/companies.py`
-- An additional data file is in `data/21 Persons.json` so we can have some names for the people
-- The script to stream in the initial data is `load_data.sh`
 
 ## Deliverables
 ### Required
