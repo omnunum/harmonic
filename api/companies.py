@@ -1,6 +1,4 @@
 # app/users.py
-from __future__ import annotations
-
 from http import HTTPStatus
 import os
 
@@ -12,6 +10,7 @@ import api.generated_queries as qs
 router = APIRouter()
 client = edgedb.create_async_client(
     host=os.getenv('EDGEDB_HOST', 'localhost'),
+    port=int(os.getenv('EDGEDB_PORT', 5656)),
     tls_security="insecure"
 )
 
