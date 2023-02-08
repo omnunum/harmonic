@@ -1,0 +1,26 @@
+version: '3.5'
+services:
+  edgedb:
+    image: edgedb/edgedb
+    environment:
+      EDGEDB_SERVER_SECURITY: insecure_dev_mode
+    volumes:
+      - ".:/home"
+    ports:
+      - "5656:5656"
+      - "10700:10700"
+  data_services:
+    links:
+      - edgedb:edgedb
+    volumes:
+      - "./:/harmonic"
+    ports:
+      - "5001:5001"
+    environment:
+      API_PORT: 5001
+      EDGEDB_HOST: edgedb
+      INGESTION_PIPE: ingestion
+    build:
+      context: .
+      dockerfile: Dockerfile
+      

@@ -1,0 +1,22 @@
+# Exclude the virtual environment
+__pycache__
+*.egg-info
+dist
+build
+.venv
+
+# Exclude the logs
+logs
+
+# Exclude any .pyc or .pyo files
+*.pyc
+*.pyo
+
+# Exclude any .DS_Store files
+.DS_Store
+
+# Exclude the .git directory
+.git
+
+# Exclude the .vscode directory
+.vscode
