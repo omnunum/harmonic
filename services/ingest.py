@@ -138,8 +138,9 @@ async def main() -> None:
 
     client = edgedb.create_async_client(
         host=os.getenv('EDGEDB_HOST', 'localhost'),
-        port=int(os.getenv('EDGEDB_PORT', 5656)),
-        tls_security="insecure"
+        port=int(os.getenv('EDGEDB_PORT', 10700)),
+        password=os.getenv('EDGEDB_PASSWORD', 'harmonic'),
+        tls_security='insecure'
     )
     # Whenever the writer on the named pipe closes, we'll get an empty message
     #   and need to reopen the reader in order to have the reader block correctly.

@@ -2,29 +2,36 @@
 ## Quickstart
 Clone the repo as `harmonic` and then cd in.  If running locally, make sure to create a new python 3.10 virtual environment first.  After setting up, see the [Named Pipe as Message Bus](#named-pipe-as-message-bus) and [API](#api) for usage.
 
-### Local
-I wasn't able to get the EdgeDB UI to accept incoming connections from the host when run in a container, so the local installation method will be needed when running the process with the UI available.  
-
-Run the following commands:
-- (make sure we are in the repo) `cd harmonic`
-- (install edgedb) `curl --proto '=https' --tlsv1.2 -sSf https://sh.edgedb.com | sh` 
-- (initialize db) `edgedb project init --non-interactive`
-- (open ui for query REPL) `edgedb ui`
-- (install data processing tool) `brew install jq` or `sudo apt-get install jq`
-- (python libraries and tooling) `pip3 install -r requirements.txt`
-- (setup environment variables) `export INGESTION_PIPE=ingestion API_PORT=5001`
-- (setup our named pipe for communication) `mkfifo $INGESTION_PIPE`
-- Run these in seperate tabs or `&` chain them
-  - (monitor pipe and stream in data) `python3 services/ingest.py`
-  - (send inital data to pipe) `./load_data.sh`
-  - (start REST API to query database) `uvicorn api.main:fast_api --port $API_PORT --reload`
-
 ### Docker
 Run the following commands
 - `docker compose up edgedb`
-- (initialize database) `docker exec harmonic-edgedb-1 su edgedb -c "cd home && edgedb project init --non-interactive"`
+- (initialize database, generate UI login (make sure to swap port to 10701)) ```
+docker exec harmonic-edgedb-1 su edgedb -c "\
+cd harmonic && edgedb project init --non-interactive ; \
+echo harmonic | edgedb instance reset-password -I harmonic --password-from-stdin && \
+edgedb instance credentials -I harmonic && \
+edgedb ui -I harmonic --print-url"
+```
 - (loading initial data will be taken care of here) `docker compose up data_services`
 - (shell into the container so we can use the API and stream data)`docker exec -it harmonic-data_services-1 /bin/bash`
+- (stream the data into the pipe) `./load_data.sh`
+
+
+### Local
+Run the following commands:
+- (make sure we are in the repo) `cd harmonic`
+- (install edgedb) `curl --proto '=https' --tlsv1.2 -sSf https://sh.edgedb.com | sh` 
+- (install data processing tool) `brew install jq` or `sudo apt-get install jq`
+- (initialize db) `edgedb project init --non-interactive`
+- (set password) `echo "harmonic" | edgedb instance reset-password -I harmonic --password-from-stdin`
+- (setup environment variables) `export INGESTION_PIPE=ingestion API_PORT=5001`
+- (open ui for query REPL) `edgedb ui`
+- (python libraries and tooling) `pip3 install -r requirements.txt`
+- (setup our named pipe for communication) `mkfifo $INGESTION_PIPE`
+- Run these in seperate tabs with the above environment vars or `(&)` group chain them
+  - (monitor pipe and stream in data) `python3 services/ingest.py`
+  - (send inital data to pipe) `./load_data.sh`
+  - (start REST API to query database) `uvicorn api.main:fast_api --port $API_PORT --reload`
 
 ## Deliverables
 ### Required

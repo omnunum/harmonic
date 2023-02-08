@@ -10,8 +10,8 @@ import api.generated_queries as qs
 router = APIRouter()
 client = edgedb.create_async_client(
     host=os.getenv('EDGEDB_HOST', 'localhost'),
-    port=int(os.getenv('EDGEDB_PORT', 5656)),
-    tls_security="insecure"
+    port=int(os.getenv('EDGEDB_PORT', 10700)),
+    password=os.getenv('EDGEDB_PASSWORD', 'harmonic'),
 )
 
 class RequestData(BaseModel):
