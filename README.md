@@ -1,6 +1,6 @@
 # Harmonic Take Home
 ## Quickstart
-Clone the repo as `harmonic` and then cd in.  If running locally, make sure to create a new python 3.10 virtual environment first.  After setting up, see the [Named Pipe as Message Bus](#named-pipe-as-message-bus) and [API](#api) for usage.  After some data is loaded you can check out [a walkthrough with our data](Exploration\ Cookbook.md) and the [official EdgeDB cheatsheets](https://www.edgedb.com/docs/guides/cheatsheet/index#cheatsheets).
+Clone the repo as `harmonic` and then cd in.  If running locally, make sure to create a new python 3.10 virtual environment first.  After setting up, see the [Named Pipe as Message Bus](#named-pipe-as-message-bus) and [API](#api) for usage.  After some data is loaded you can check out [a walkthrough with our data](Exploration%20Cookbook.md) and the [official EdgeDB cheatsheets](https://www.edgedb.com/docs/guides/cheatsheet/index#cheatsheets).
 
 ### Docker
 Run the following commands
