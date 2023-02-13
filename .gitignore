@@ -50,3 +50,7 @@ coverage.xml
 docs/_build/
 
 .vscode/
+
+# Added by cargo
+
+/target
